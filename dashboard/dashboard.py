@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-data_path = "all_data.csv"  # Sesuaikan dengan lokasi file Anda
+data_path = os.path.join(os.path.dirname(__file__), 'data')
 all_df = pd.read_csv(data_path)
 all_df['dteday_day'] = pd.to_datetime(all_df['dteday_day'])
 date_range = st.sidebar.date_input(
