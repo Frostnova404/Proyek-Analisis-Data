@@ -20,8 +20,7 @@ date_range = st.sidebar.date_input(
     max_value=all_df['dteday_day'].max()
 )
 
-filtered_df = all_df[(all_df['dteday_day'] >= pd.Timestamp(date_range[0])) &
-                     (all_df['dteday_day'] <= pd.Timestamp(date_range[1]))]
+filtered_df = all_df[(all_df['dteday_day'] >= pd.Timestamp(date_range[0])) & (all_df['dteday_day'] <= pd.Timestamp(date_range[1]))]
 
 # Judul Dashboard
 st.title("Dashboard Analisis Penggunaan Sepeda")
