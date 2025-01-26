@@ -27,7 +27,7 @@ filtered_df = all_df[(all_df['dteday_day'] >= pd.Timestamp(date_range[0])) &
 st.title("Dashboard Analisis Penggunaan Sepeda")
 st.markdown("---")
 
-# Plot 1: Pengguna Harian
+# Pengguna Harian
 st.header("Statistik Pengguna Sepeda")
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -42,6 +42,18 @@ with col3:
 
 st.markdown(
     "Statistik ini memberikan gambaran jumlah total pengguna sepeda (biasa dan terdaftar) berdasarkan rentang waktu yang dipilih."
+)
+
+# plot 1: Penggunaan Sepeda Harian
+st.header("Penggunaan Sepeda Harian")
+fig, ax = plt.subplots(figsize=(10, 5))
+ax.plot(filtered_df['dteday_day'], filtered_df['cnt_day'], marker='o', color='#90CAF9', label='Total Pengguna')
+ax.set_xlabel("Tanggal")
+ax.set_ylabel("Jumlah Pengguna Sepeda")
+ax.legend()
+st.pyplot(fig)
+st.markdown(
+    "Grafik ini memvisualisasikan pola jumlah pengguna sepeda harian. menunjukkan perbedaan antara hari kerja dan akhir pekan."
 )
 
 # Plot 2: Hubungan Suhu dengan Pengguna Sepeda (Per Jam)
