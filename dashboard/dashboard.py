@@ -44,8 +44,21 @@ st.markdown(
     "Statistik ini memberikan gambaran jumlah total pengguna sepeda (biasa dan terdaftar) berdasarkan rentang waktu yang dipilih."
 )
 
+# Plot 3: Perbandingan Pengguna Biasa vs Terdaftar
+st.header("Pengguna Biasa vs Pengguna Terdaftar")
+fig, ax = plt.subplots(figsize=(10, 5))
+ax.bar(filtered_df['dteday_day'], filtered_df['casual_day'], label='Pengguna Biasa', color='#FFC107')
+ax.bar(filtered_df['dteday_day'], filtered_df['registered_day'], bottom=filtered_df['casual_day'], label='Pengguna Terdaftar', color='#03A9F4')
+ax.set_xlabel("Tanggal")
+ax.set_ylabel("Jumlah Pengguna")
+ax.legend()
+st.pyplot(fig)
+st.markdown(
+    "Bar chart ini hanya memperlihatkan kontribusi masing-masing jenis pengguna."
+)
+
 # plot 1: Penggunaan Sepeda Harian
-st.header("Penggunaan Sepeda Harian")
+st.header("Penggunaan Sepeda Harian Berdasarkan Hari")
 fig, ax = plt.subplots(figsize=(10, 5))
 ax.plot(filtered_df['dteday_day'], filtered_df['cnt_day'], marker='o', color='#90CAF9', label='Total Pengguna')
 ax.set_xlabel("Tanggal")
@@ -57,7 +70,7 @@ st.markdown(
 )
 
 # Plot 2: Hubungan Suhu dengan Pengguna Sepeda (Per Jam)
-st.header("Hubungan Suhu dengan Pengguna Sepeda (Per Jam)")
+st.header("Faktor yang paling memengaruhi jumlah penggunaan sepeda per-jam")
 fig, ax = plt.subplots(figsize=(10, 5))
 sns.scatterplot(
     data=filtered_df,
@@ -74,27 +87,14 @@ st.markdown(
     "Scatterplot ini menggambarkan bahwa suhu memiliki hubungan positif dengan jumlah pengguna sepeda. Semakin tinggi suhu, semakin banyak pengguna sepeda. Warna menambahkan dimensi kelembapan (humidity), yang juga memengaruhi kenyamanan pengguna."
 )
 
-# Plot 3: Perbandingan Pengguna Biasa vs Terdaftar
-st.header("Pengguna Biasa vs Pengguna Terdaftar")
-fig, ax = plt.subplots(figsize=(10, 5))
-ax.bar(filtered_df['dteday_day'], filtered_df['casual_day'], label='Pengguna Biasa', color='#FFC107')
-ax.bar(filtered_df['dteday_day'], filtered_df['registered_day'], bottom=filtered_df['casual_day'], label='Pengguna Terdaftar', color='#03A9F4')
-ax.set_xlabel("Tanggal")
-ax.set_ylabel("Jumlah Pengguna")
-ax.legend()
-st.pyplot(fig)
-st.markdown(
-    "Bar chart ini memperlihatkan kontribusi masing-masing jenis pengguna. Pengguna terdaftar biasanya lebih dominan dibandingkan pengguna biasa, terutama pada hari kerja."
-)
-
-# Plot 4: Faktor yang Mempengaruhi Penggunaan Sepeda
-st.subheader("Faktor yang Mempengaruhi Penggunaan Sepeda")
+# Plot 4: Apa Hubungan suhu pada jumlah penggunaan sepeda
+st.subheader("Hubungan suhu pada jumlah penggunaan sepeda")
 correlation = filtered_df[['temp_hour', 'hum_hour', 'windspeed_hour', 'cnt_hour']].corr()
 fig, ax = plt.subplots(figsize=(8, 6))
 sns.heatmap(correlation, annot=True, cmap="coolwarm", ax=ax)
 ax.set_title("Korelasi Variabel terhadap Jumlah Penggunaan")
 st.pyplot(fig)
-st.markdown("Heatmap ini menunjukkan faktor yang memiliki hubungan paling kuat terhadap jumlah penggunaan sepeda.")
+st.markdown("Heatmap ini menunjukkan faktor yang memiliki hubungan paling kuat terhadap jumlah penggunaan sepeda, yaitu suhu.")
 
 # Footer
 st.markdown("---")
